@@ -1,0 +1,10 @@
+
+{
+    "DB1": {
+      "host": "localhost",
+      "user": "root",
+      "password": "password",
+      "dbname": "manuDB"
+    }
+  }
+  
