@@ -7,12 +7,12 @@ def get_product_cvp(company_id):
     Retrieves product CVP data from the database for the given company_id.
     """
     try:
-        # Database connection setup (Get actual creds)
+        # Database connection setup (Get actual Creds from William)
         connection = mysql.connector.connect(
-            host="your_database_host",
-            user="your_database_user",
-            password="your_database_password",
-            database="your_database_name"
+            host="",
+            user="",
+            password="",
+            database=""
         )
 
         cursor = connection.cursor(dictionary=True)  # Fetch results as dictionaries
