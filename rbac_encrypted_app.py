@@ -10,7 +10,7 @@ RUN ON LINPROG
 
 #IMPORT
 from flask import Flask, render_template, redirect, url_for, request, session
-from database import initialize_database, add_user_to_database #IMPLEMENT DATABASE FUNCTIONS
+from database import initialize_database, add_user_to_database, get_username_from_database #IMPLEMENT DATABASE FUNCTIONS
 from encryption import cipher
 
 #FLASK
@@ -36,8 +36,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         encrypted_username = cipher.encrypt(username.encode()).decode()
-        #IMPLEMENT DATABASE FUNCTIONS
-        user = None  
+        user = get_username_from_database(encrypted_username)
         if user and cipher.decrypt(user['Password']) == password:
             session['ID'] = user['ID']
             session['username'] = cipher.decrypt(user['Username'])
@@ -72,8 +71,8 @@ def list_data():
         return redirect(url_for('login'))
     if session['security'] >= 1: 
         #IMPLEMENT DATABASE LOGIC
-        results = []  
-        return render_template('list_data.html', results=results)
+        data = []  
+        return render_template('list_data.html', data=data)
     return redirect(url_for('login'))
 
 #USER, ADMIN FUNCTION ADD DATA 
@@ -84,7 +83,7 @@ def add_data():
     if session['security'] >= 2: 
         if request.method == 'POST':
             #IMPLEMENT DATABASE LOGIC
-            return redirect(url_for('results', message="RECORD ADDED SUCCESSFULLY"))
+            return redirect(url_for('results', message="RECORD ADDED."))
         return render_template('add_data.html')
     return redirect(url_for('login'))
 
@@ -100,14 +99,14 @@ def list_users():
 #ADMIN FUNCTION ADD USER
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
-    if 'ID' not in session or session['security'] >= 3:  
+    if 'ID' not in session or session['security_level'] >= 3:  
         if request.method == 'POST':
             #IMPLEMENT DATABASE LOGIC
             name = request.form['name']
-            security = int(request.form['security'])
+            security_level = int(request.form['security_level'])
             password = cipher.encrypt(request.form['login_password'].encode()).decode()
-            add_user_to_database(name, security, password)
-            return redirect(url_for('results', message="USER ADDED SUCCESSFULLY"))
+            add_user_to_database(name, security_level, password)
+            return redirect(url_for('results', message="USER ADDED."))
         return render_template('add_user.html')
     return redirect(url_for('login'))
 
