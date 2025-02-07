@@ -10,7 +10,7 @@ RUN ON LINPROG
 
 #IMPORT
 from flask import Flask, render_template, redirect, url_for, request, session
-from database import initialize_database, add_user_to_database 
+from database import initialize_database, add_user_to_database #IMPLEMENT DATABASE FUNCTIONS
 from encryption import cipher
 
 #FLASK
@@ -36,8 +36,10 @@ def login():
         username = request.form['username']
         password = request.form['password']
         encrypted_username = cipher.encrypt(username.encode()).decode()
+        #IMPLEMENT DATABASE FUNCTIONS
         user = None  
         if user and cipher.decrypt(user['Password']) == password:
+            session['ID'] = user['ID']
             session['username'] = cipher.decrypt(user['Username'])
             session['security'] = user['Security']
             return redirect(url_for('home'))
@@ -69,6 +71,7 @@ def list_data():
     if 'ID' not in session:
         return redirect(url_for('login'))
     if session['security'] >= 1: 
+        #IMPLEMENT DATABASE LOGIC
         results = []  
         return render_template('list_data.html', results=results)
     return redirect(url_for('login'))
@@ -80,6 +83,7 @@ def add_data():
         return redirect(url_for('login'))
     if session['security'] >= 2: 
         if request.method == 'POST':
+            #IMPLEMENT DATABASE LOGIC
             return redirect(url_for('results', message="RECORD ADDED SUCCESSFULLY"))
         return render_template('add_data.html')
     return redirect(url_for('login'))
@@ -88,6 +92,7 @@ def add_data():
 @app.route('/list_users')
 def list_users():
     if 'ID' not in session or session['security'] >= 3:  
+        #IMPLEMENT DATABASE LOGIC
         users = []
         return render_template('list_users.html', users=users)
     return redirect(url_for('login'))
@@ -97,6 +102,7 @@ def list_users():
 def add_user():
     if 'ID' not in session or session['security'] >= 3:  
         if request.method == 'POST':
+            #IMPLEMENT DATABASE LOGIC
             name = request.form['name']
             security = int(request.form['security'])
             password = cipher.encrypt(request.form['login_password'].encode()).decode()
