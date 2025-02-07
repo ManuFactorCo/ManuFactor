@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <!-- SECURITY LEVELS -->
+    {% if security_level == 3 %}
+        <!-- ADMIN -->
+        <a href="/list_data">List Data</a><br>
+        <a href="/add_data">Add Data</a><br>
+        <a href="/list_users">List Users</a><br>
+        <a href="/add_users">Add User</a><br>
+    {% elif security_level == 2 %}
+        <!-- USER -->
+        <a href="/list_data">List Data</a><br>
+        <a href="/add_data">Add Data</a><br>
+    {% elif security_level == 1 %}
+        <!-- VIEWER -->
+        <a href="/list_data">List Data</a><br>
+    {% endif %}
+    
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
+</body>
+</html>
