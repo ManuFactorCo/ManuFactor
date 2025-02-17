@@ -12,7 +12,7 @@ def get_product_cvp(company_id):
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="password",
+            password="",
             database="manuDB"
         )
 
