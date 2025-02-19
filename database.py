@@ -2,7 +2,7 @@ import mysql.connector
 from encryption import cipher
 
 def initialize_database():
-    # initialize the database and adds default users if they don't already exist. 
+    # initialize the database and adds default users 
     connection = mysql.connector.connect(
         host="localhost",
         user="root",
@@ -24,7 +24,7 @@ def initialize_database():
     );
     """)
 
-    # Create User table (if not exists)
+    # Create User table 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS user (
         user_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -38,7 +38,7 @@ def initialize_database():
     );
     """)
 
-    # adding the default users if they don't already exist
+    # adding the default users 
     cursor.execute("SELECT * FROM user WHERE Username = %s", (cipher.encrypt(b"admin").decode(),))
     if cursor.fetchone() is None:
         add_user_to_database(cursor, "admin", "admin", 3)
@@ -83,6 +83,7 @@ def add_user_to_database(cursor, username, password, security_level):
     cursor.close()
     connection.close()
     return user'''
+
 def get_username_from_database(encrypted_username):
     connection = mysql.connector.connect(
         host="localhost",
