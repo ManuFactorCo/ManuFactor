@@ -16,16 +16,7 @@ app = Flask(__name__)
 app.secret_key = 'secret_key'
 
 #INITALIZE DATABASE
-initialize_database()
-
-#ADMIN TEST USER SECURITY LEVEL III 
-add_user_to_database("admin", 3, cipher.encrypt("admin".encode()).decode())
-
-#USER TEST USER SECURITY LEVEL II
-add_user_to_database("user", 2, cipher.encrypt("user".encode()).decode())
-
-#VIEWER TEST USER SECURITY LEVEL I
-add_user_to_database("viewer", 1, cipher.encrypt("viewer".encode()).decode())
+initialize_database() //INITALIZED USERS IN DATABASE.PY
 
 #LOGIN FUNCTION
 @app.route('/login', methods=['GET', 'POST'])
