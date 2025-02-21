@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.secret_key = 'secret_key'
 
 #INITALIZE DATABASE
-initialize_database() //INITALIZED USERS IN DATABASE.PY
+initialize_database() #INITALIZED USERS IN DATABASE.PY
 
 #LOGIN FUNCTION
 @app.route('/login', methods=['GET', 'POST'])
