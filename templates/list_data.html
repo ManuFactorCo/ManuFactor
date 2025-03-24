@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Data - ManuFactor</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
+</head>
+<body>
+    <div class="data1-container">
+        <h1>View and Manage Data</h1>
+        <h2>CVP Data Entries</h2>
+
+        <!-- example table displaying entered data -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fixed Costs ($)</th>
+                    <th>Variable Cost per Unit ($)</th>
+                    <th>Selling Price per Unit ($)</th>
+                    <th>Projected Units Sold</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- example data -->
+                <tr>
+                    <td>1</td>
+                    <td>50000</td>
+                    <td>25</td>
+                    <td>75</td>
+                    <td>1000</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                        <a href="cvp_results.html">
+                            <button>View CVP Analysis</button>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>60000</td>
+                    <td>30</td>
+                    <td>80</td>
+                    <td>1200</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                        <a href="cvp_results.html">
+                            <button>View CVP Analysis</button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="add_data.html">
+            <button>Add New Data</button>
+        </a>
+    </div>
+    <div class="data2-container">
+        <h2>BP Data Entries</h2>
+
+        <!-- example table displaying entered data -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Current Month's Projected Sales ($)</th>
+                    <th>Next Month's Projected Sales ($)</th>
+                    <th>Subsequent Month's Projected Sales ($)</th>
+                    <th>Desired Ending Inventory (%)</th>
+                    <th>Direct Material per Unit</th>
+                    <th>Desired Direct Material Ending Inventory (%)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- example data -->
+                <tr>
+                    <td>1</td>
+                    <td>50000</td>
+                    <td>25</td>
+                    <td>75</td>
+                    <td>1000</td>
+                    <td>10</td>
+                    <td>100</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                        <a href="bp_results.html">
+                            <button>View BP Analysis</button>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>60000</td>
+                    <td>30</td>
+                    <td>80</td>
+                    <td>1200</td>
+                    <td>12</td>
+                    <td>120</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                        <a href="bp_results.html">
+                            <button>View BP Analysis</button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="add_data.html">
+            <button>Add New Data</button>
+        </a>
+    </div>
+    <a href="home.html">
+        <button>Back to Dashboard</button>
+    </a>
+</body>
+</html>

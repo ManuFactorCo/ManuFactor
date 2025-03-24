@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - ManuFactor</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
+     
+    <!-- You can use a chart library like Chart.js to display results visually -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="results-container">
+        <h1>Budgeting Production (BP) Analysis</h1>
+
+        <!-- BP Analysis section -->
+        <section id="bp-analysis-section">
+            <h2>Budgeting Production (BP) Analysis</h2>
+            <p>This analysis helps in budgeting the production requirements, sales forecasts, and inventory levels for the selected data.</p>
+            <ul>
+                <li><strong>Current Month's Projected Sales:</strong> $50,000</li> <!-- example value -->
+                <li><strong>Next Month's Projected Sales:</strong> $55,000</li> <!-- example value -->
+                <li><strong>Subsequent Month's Projected Sales:</strong> $60,000</li> <!-- example value -->
+                <li><strong>Desired Ending Inventory (%):</strong> 20%</li> <!-- example value -->
+                <li><strong>Direct Material Requirement per Unit:</strong> $10</li> <!-- example value -->
+                <li><strong>Total Direct Material Requirement:</strong> $12,000</li> <!-- example value -->
+            </ul>
+
+            <!-- Graph Representation for BP -->
+            <section id="bp-chart-section">
+                <h3>Graphical Analysis</h3>
+                <canvas id="bpChart" width="400" height="200"></canvas>
+                <script>
+                    var ctx = document.getElementById('bpChart').getContext('2d');
+                    var bpChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['0', '500', '1000', '1500', '2000'],  // X-axis: Units Produced
+                            datasets: [{
+                                label: 'Projected Sales',
+                                data: [50000, 55000, 60000, 65000, 70000],  // Y-axis: Sales Amount
+                                borderColor: 'blue',
+                                fill: false
+                            }, {
+                                label: 'Material Requirement',
+                                data: [10000, 12000, 13000, 14000, 15000],  // Y-axis: Material Cost
+                                borderColor: 'orange',
+                                fill: false
+                            }]
+                        }
+                    });
+                </script>
+            </section>
+
+            <!-- Results Table for BP -->
+            <section id="bp-results-table-section">
+                <h3>Detailed BP Results</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Unit Range</th>
+                            <th>Total Sales</th>
+                            <th>Total Material Cost</th>
+                            <th>Projected Profit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0-500</td>
+                            <td>$50,000</td>
+                            <td>$10,000</td>
+                            <td>$40,000</td>
+                        </tr>
+                        <tr>
+                            <td>500-1000</td>
+                            <td>$55,000</td>
+                            <td>$12,000</td>
+                            <td>$43,000</td>
+                        </tr>
+                        <tr>
+                            <td>1000-1500</td>
+                            <td>$60,000</td>
+                            <td>$13,000</td>
+                            <td>$47,000</td>
+                        </tr>
+                        <tr>
+                            <td>1500-2000</td>
+                            <td>$65,000</td>
+                            <td>$14,000</td>
+                            <td>$51,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+        <a href="add_data.html">
+            <button>Add New Data</button>
+        </a>
+    </div>
+
+    <a href="list_data.html">
+        <button>View Data</button>
+    </a>
+
+    <a href="home.html">
+        <button>Back to Dashboard</button>
+    </a>
+</body>
+</html>
