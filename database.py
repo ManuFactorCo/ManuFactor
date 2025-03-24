@@ -1,3 +1,4 @@
+"""C. MILLS: FLASK IS ACCURATE, DB IS ACCURATE, CONNECTION NEEDS TO BE RESOLVED."""
 import mysql.connector
 from encryption import cipher
 
@@ -13,7 +14,7 @@ def initialize_database():
 
 
     # create product  table (if not exists)
-    '''cursor.execute("""
+    cursor.execute("""
     CREATE TABLE IF NOT EXISTS product_cvp (
         prod_id INT PRIMARY KEY AUTO_INCREMENT,
         comp_id INT,
@@ -22,10 +23,10 @@ def initialize_database():
         selling_price_per_unit DECIMAL(15,2),
         target_income DECIMAL(15,2)
     );
-    """)'''
+    """)
 
     # Create User table (if not exists)
-    '''cursor.execute("""
+    cursor.execute("""
     CREATE TABLE IF NOT EXISTS user (
         user_id INT PRIMARY KEY AUTO_INCREMENT,
         comp_id INT,
@@ -36,10 +37,10 @@ def initialize_database():
         password VARCHAR(255),
         Username VARCHAR(255) UNIQUE
     );
-    """)'''
+    """)
 
     # adding the default users if they don't already exist
-    '''cursor.execute("SELECT * FROM user WHERE Username = %s", (cipher.encrypt(b"admin").decode(),))
+    cursor.execute("SELECT * FROM user WHERE Username = %s", (cipher.encrypt(b"admin").decode(),))
     if cursor.fetchone() is None:
         add_user_to_database(cursor, "admin", "admin", 3)
 
@@ -53,7 +54,7 @@ def initialize_database():
 
     connection.commit()
     cursor.close()
-    connection.close()'''
+    connection.close()
 
 def add_user_to_database(cursor, username, password, security_level):
     """ Adds a new user to the database with encrypted password. """
