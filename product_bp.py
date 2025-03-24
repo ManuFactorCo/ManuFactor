@@ -106,5 +106,31 @@ def calc_purchases(curr_production, next_production, EI_DM_Rate, DM_per_Unit, DM
     Use = curr_production * DM_per_Unit
     return DM_price * (Use + EI - BI)
 
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Calculate production for a given company.")
+    parser.add_argument("company_id", type=int, help="Company ID to retrieve BP data for")
+    args = parser.parse_args()
+
+    company_id = args.company_id
+    data = get_product_bp(company_id)
+
+    if not data:
+        print("No data found for the specified company.")
+    else:
+        curr_sales = data['curr_Sales']
+        next_sales = data['next_Sales']
+        twicenext_sales = data['twicenext_Sales']
+        ei_rate = data['EI_Rate']
+        dm_per_unit = data['DM_per_Unit']
+        ei_dm_rate = data['EI_DM_Rate']
+        dm_price = data['DM_Price']
+
+        this_month_production = calc_production(curr_sales, next_sales, ei_rate)
+        next_month_production = calc_production(next_sales, twicenext_sales, ei_rate)
+        dm_purchases = calc_purchases(this_month_production, next_month_production, ei_dm_rate, dm_per_unit, dm_price)
+
+
 
     
