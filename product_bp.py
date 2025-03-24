@@ -3,32 +3,23 @@ import mysql.connector
 import json
 
 def get_product_bp(company_id):
-    """
-    Retrieves product BP data from the database for the given company_id.
-    """
-
     try:
-        # Database connection setup 
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
             password="",
             database="manuDB"
         )
+        cursor = connection.cursor(dictionary=True)
 
-        cursor = connection.cursor(dictionary=True)  # Fetch results as dictionaries
-
-        # SQL Query get data 
         query = """
         SELECT curr_Sales, next_Sales, twicenext_Sales, EI_Rate, DM_per_Unit, EI_DM_Rate, DM_Price
         FROM Product_BP
         WHERE comp_id = %s;
         """
-
         cursor.execute(query, (company_id,))
-        result = cursor.fetchone()  # Expecting one row per company_id
-
-        return result if result else None  # Return None if no data
+        result = cursor.fetchone()
+        return result if result else None
 
     except mysql.connector.Error as err:
         print(json.dumps({"error": f"Database Error: {err}"}))
@@ -39,22 +30,15 @@ def get_product_bp(company_id):
             connection.close()
 
 def update_product_bp(company_id, curr_Sales, next_Sales, twicenext_Sales, EI_Rate, DM_per_Unit, EI_DM_Rate, DM_Price):
-    """
-    Updates product BP data in the database for the given company_id.
-    """
-
     try:
-        # Database connection setup 
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
             password="",
             database="manuDB"
         )
-
         cursor = connection.cursor()
 
-        # SQL query to update existing BP data
         query = """
         UPDATE Product_BP
         SET 
@@ -67,7 +51,6 @@ def update_product_bp(company_id, curr_Sales, next_Sales, twicenext_Sales, EI_Ra
             DM_Price = %s
         WHERE comp_id = %s;
         """
-
         values = (
             curr_Sales,
             next_Sales,
@@ -82,14 +65,11 @@ def update_product_bp(company_id, curr_Sales, next_Sales, twicenext_Sales, EI_Ra
         cursor.execute(query, values)
         connection.commit()
 
-        if cursor.rowcount == 0:
-            print(json.dumps({"message": "No rows updated. Check if company_id exists."}))
-        else:
-            print(json.dumps({"message": "BP data updated successfully."}))
+        message = "BP data updated successfully." if cursor.rowcount > 0 else "No rows updated. Check if company_id exists."
+        print(json.dumps({"message": message}))
 
     except mysql.connector.Error as err:
         print(json.dumps({"error": f"Database Error: {err}"}))
-
     finally:
         if 'connection' in locals():
             cursor.close()
@@ -107,9 +87,7 @@ def calc_purchases(curr_production, next_production, EI_DM_Rate, DM_per_Unit, DM
     return DM_price * (Use + EI - BI)
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description="Calculate production for a given company.")
+    parser = argparse.ArgumentParser(description="Calculate production and DM purchases for a given company.")
     parser.add_argument("company_id", type=int, help="Company ID to retrieve BP data for")
     args = parser.parse_args()
 
@@ -117,7 +95,7 @@ if __name__ == "__main__":
     data = get_product_bp(company_id)
 
     if not data:
-        print("No data found for the specified company.")
+        print(json.dumps({"error": "No data found for the specified company."}))
     else:
         curr_sales = data['curr_Sales']
         next_sales = data['next_Sales']
@@ -131,6 +109,10 @@ if __name__ == "__main__":
         next_month_production = calc_production(next_sales, twicenext_sales, ei_rate)
         dm_purchases = calc_purchases(this_month_production, next_month_production, ei_dm_rate, dm_per_unit, dm_price)
 
+        result = {
+            "company_id": company_id,
+            "production_required": round(this_month_production, 0),
+            "dm_purchases_required": round(dm_purchases, 2)
+        }
 
-
-    
+        print(json.dumps(result, indent=2))
