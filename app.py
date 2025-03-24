@@ -1,9 +1,8 @@
-"""
-USING FLASK, HTML, SQL DATABASE, CIPHER TO IMPLEMENT ROLE BASED ACCESS CONTROL AND ENCRYPTION.
-"""
+"""C. MILLS: FLASK IS ACCURATE, DB IS ACCURATE, CONNECTION NEEDS TO BE RESOLVED."""
 
 """
-INSTALL FLASK, CIPHER
+USING FLASK, HTML, SQL DATABASE, CIPHER TO IMPLEMENT ROLE BASED ACCESS CONTROL AND ENCRYPTION.
+INSTALL FLASK, CIPHER.
 """
 
 #IMPORT
@@ -15,8 +14,21 @@ from encryption import cipher
 app = Flask(__name__)
 app.secret_key = 'secret_key'
 
+"""C. MILLS: INITALIZE DB ONCE. 
 #INITALIZE DATABASE
-initialize_database() #INITALIZED USERS IN DATABASE.PY
+initialize_database()
+"""
+
+"""
+#ADMIN TEST USER SECURITY LEVEL III 
+add_user_to_database("admin", 3, cipher.encrypt("admin".encode()).decode())
+
+#USER TEST USER SECURITY LEVEL II
+add_user_to_database("user", 2, cipher.encrypt("user".encode()).decode())
+
+#VIEWER TEST USER SECURITY LEVEL I
+add_user_to_database("viewer", 1, cipher.encrypt("viewer".encode()).decode())
+"""
 
 #LOGIN FUNCTION
 @app.route('/login', methods=['GET', 'POST'])
@@ -46,6 +58,8 @@ def logout():
 def home():
     if 'ID' not in session:
         return redirect(url_for('login'))
+        print("DEBUG - username:", session.get('username'))
+        print("DEBUG - security:", session.get('security'))
     return render_template('home.html', username=session['username'], security=session['security'])
 
 #RESULTS PAGE FUNCTION
