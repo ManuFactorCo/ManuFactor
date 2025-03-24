@@ -12,6 +12,7 @@ CREATE TABLE product_cvp(
     target_income DECIMAL(15,2)
 );
 
+/*
 -- Create User Table
 CREATE TABLE user (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -20,6 +21,19 @@ CREATE TABLE user (
     lname VARCHAR(15),
     email VARCHAR(20)
 )
+*/
+
+-- Create User Table
+CREATE TABLE user (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    comp_id INT,
+    fname VARCHAR(15),
+    lname VARCHAR(15),
+    email VARCHAR(20),
+    Username VARCHAR(255) UNIQUE,
+    security_level INT,
+    password VARCHAR(255)
+);
 
 CREATE TABLE product_bp (
     prod_id INT PRIMARY KEY AUTO_INCREMENT,
