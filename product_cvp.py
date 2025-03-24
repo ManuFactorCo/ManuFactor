@@ -38,6 +38,50 @@ def get_product_cvp(company_id):
             cursor.close()
             connection.close()
 
+def update_product_cvp(company_id, fixed_cost, variable_cost_per_unit, selling_price_per_unit, target_income):
+    """
+    Updates product CVP data in the database for the given company_id.
+    If the company_id doesn't exist, no update is performed.
+    """
+
+    try:
+        # Database connection setup 
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="manuDB"
+        )
+
+        cursor = connection.cursor()
+
+        # SQL query to update existing CVP data
+        query = """
+        UPDATE Product_CVP
+        SET fixed_cost = %s,
+            variable_cost_per_unit = %s,
+            selling_price_per_unit = %s,
+            target_income = %s
+        WHERE comp_id = %s;
+        """
+
+        values = (fixed_cost, variable_cost_per_unit, selling_price_per_unit, target_income, company_id)
+        cursor.execute(query, values)
+        connection.commit()
+
+        if cursor.rowcount == 0:
+            print(json.dumps({"message": "No rows updated. Check if company_id exists."}))
+        else:
+            print(json.dumps({"message": "CVP data updated successfully."}))
+
+    except mysql.connector.Error as err:
+        print(json.dumps({"error": f"Database Error: {err}"}))
+    finally:
+        if 'connection' in locals():
+            cursor.close()
+            connection.close()
+
+
 
 def calculate_breakeven_and_target_sales(data):
     """
