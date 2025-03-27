@@ -8,18 +8,18 @@
     <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
 </head>
 <body>
-    <!-- SECURITY LEVELS -->
-    {% if security_level == 3 %}
+    <!-- SECURITY LEVELS --><!--LD Changing all instances of "security_level" to security to match app.py-->
+    {% if security == 3 %}
         <!-- ADMIN -->
-        <a href="{{ url_for('add_users') }}"><button>Manage Users</button></a>
+        <a href="{{ url_for('add_user') }}"><button>Manage Users</button></a><!--changing add_users to add_user-->
         <a href="{{ url_for('list_users') }}"><button>View Users</button></a>
         <a href="{{ url_for('add_data') }}"><button>Manage Data</button></a>
         <a href="{{ url_for('list_data') }}"><button>View Data</button></a>
-    {% elif security_level == 2 %}
+    {% elif security == 2 %}
         <!-- USER -->
         <a href="{{ url_for('add_data') }}"><button>Manage Data</button></a>
         <a href="{{ url_for('list_data') }}"><button>View Data</button></a>
-    {% elif security_level == 1 %}
+    {% elif security == 1 %}
         <!-- VIEWER -->
         <a href="{{ url_for('list_data') }}"><button>View Data</button></a>
     {% endif %}

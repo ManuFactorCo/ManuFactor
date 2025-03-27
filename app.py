@@ -111,7 +111,7 @@ def list_users():
 #ADMIN FUNCTION ADD USER
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
-    if 'ID' not in session or session['security_level'] >= 3:  
+    if 'ID' not in session or session['security'] >= 3:  #LD changed security_level to security
         if request.method == 'POST':
             #IMPLEMENT DATABASE LOGIC
             name = request.form['name']
@@ -119,7 +119,7 @@ def add_user():
             password = cipher.encrypt(request.form['login_password'].encode()).decode()
             add_user_to_database(name, security_level, password)
             return redirect(url_for('results', message="USER ADDED."))
-        return render_template('add_user.html')
+        return render_template('add_users.html') #LD changed add_user.html to add_user
     return redirect(url_for('login'))
 
 #ADDING ROUTES ALONGSIDE HTML
