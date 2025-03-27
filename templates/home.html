@@ -8,20 +8,20 @@
     <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
 </head>
 <body>
-    <!-- SECURITY LEVELS --> <!-- LD changing all instance of varibale "security_level" to "security" to match app-->
-    {% if security == 3 %}
+    <!-- SECURITY LEVELS -->
+    {% if security_level == 3 %}
         <!-- ADMIN -->
-        <a href="add_users.html"><button>Manage Users</button></a>
-        <a href="list_users.html"><button>View Users</button></a>
-        <a href="add_data.html"><button>Manage Data</button></a>
-        <a href="list_data.html"><button>View Data</button></a>
-    {% elif security == 2 %}
+        <a href="{{ url_for('add_users') }}"><button>Manage Users</button></a>
+        <a href="{{ url_for('list_users') }}"><button>View Users</button></a>
+        <a href="{{ url_for('add_data') }}"><button>Manage Data</button></a>
+        <a href="{{ url_for('list_data') }}"><button>View Data</button></a>
+    {% elif security_level == 2 %}
         <!-- USER -->
-        <a href="add_data.html"><button>Manage Data</button></a>
-        <a href="list_data.html"><button>View Data</button></a>
-    {% elif security == 1 %}
+        <a href="{{ url_for('add_data') }}"><button>Manage Data</button></a>
+        <a href="{{ url_for('list_data') }}"><button>View Data</button></a>
+    {% elif security_level == 1 %}
         <!-- VIEWER -->
-        <a href="list_data.html"><button>View Data</button></a>
+        <a href="{{ url_for('list_data') }}"><button>View Data</button></a>
     {% endif %}
     
     <!-- LOGOUT -->
