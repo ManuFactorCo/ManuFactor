@@ -122,6 +122,8 @@ def add_user():
         return render_template('add_user.html')
     return redirect(url_for('login'))
 
+#ADDING ROUTES ALONGSIDE HTML
+
 #MAIN FUNCTION
 if __name__ == '__main__':
     app.run(debug=True)
