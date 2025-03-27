@@ -4,62 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Data - ManuFactor</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
 </head>
 <body>
-    <div class="form1-container">
+    <div class="cvp-container">
         <h1>View and Manage Data</h1>
         <h2>Add New CVP Data</h2>
-        <form action="/add_data" method="POST">
-
-            <label for="fixed-costs">Fixed Costs ($):</label>
-            <input type="number" id="fixed-costs" name="fixed-costs" required>
+        <form action="{{ url_for('add_data') }}" method="POST">
+            <label for="fixed_costs">Fixed Costs ($):</label>
+            <input type="number" id="fixed_costs" name="fixed_costs" required><br><br>
 
             <label for="variable-cost-per-unit">Variable Cost per Unit ($):</label>
-            <input type="number" id="variable-cost-per-unit" name="variable-cost-per-unit" required>
+            <input type="number" id="variable-cost-per-unit" name="variable-cost-per-unit" required><br><br>
 
             <label for="selling-price-per-unit">Selling Price per Unit ($):</label>
-            <input type="number" id="selling-price-per-unit" name="selling-price-per-unit" required>
+            <input type="number" id="selling-price-per-unit" name="selling-price-per-unit" required><br><br>
 
             <label for="projected-units">Target Income ($):</label>
-            <input type="number" id="projected-units" name="projected-units" required>
+            <input type="number" id="projected-units" name="projected-units" required><br><br>
 
-            <input type="submit" value="Add Data">
-
+            <input type="submit" value="Add CVP Data">
         </form>
     </div>
-    <div class ="form2-container">
+
+    <div class="bp-container">
         <h2>Add New BP Data</h2>
-        <form action="/add_data" method="POST">
+        <form action="{{ url_for('add_data') }}" method="POST">
+            <label for="curr_Sales">Current Month's Projected Sales ($):</label>
+            <input type="number" id="curr_Sales" name="curr_Sales" required><br><br>
 
-            <label for="sales1">Current Month's Projected Sales ($):</label>
-            <input type="number" id="sales1" name="sales1" required>
+            <label for="next_Sales">Next Month's Projected Sales ($):</label>
+            <input type="number" id="next_Sales" name="next_Sales" required><br><br>
 
-            <label for="sales2">Next Month's Projected Sales ($):</label>
-            <input type="number" id="sales2" name="sales2" required>
+            <label for="twicenext_Sales">Subsequent Month's Projected Sales ($):</label>
+            <input type="number" id="twicenext_Sales" name="twicenext_Sales" required>
 
-            <label for="sales3">Subsequent Month's Projected Sales ($):</label>
-            <input type="number" id="sales3" name="sales3" required>
+            <label for="EI_Rate">Desired Ending Inventory (%):</label>
+            <input type="number" id="EI_Rate" name="EI_Rate" required><br><br>
 
-            <label for="desired-ei">Desired Ending Inventory (%):</label>
-            <input type="number" id="desired-ei" name="desired-ei" required>
+            <label for="DM_per_Unit">Direct Material per Unit:</label>
+            <input type="number" id="DM_per_Unit" name="DM_per_Unit" required><br><br>
 
-            <label for="direct-material">Direct Material per Unit:</label>
-            <input type="number" id="direct-material" name="direct-material" required>
+            <label for="EI_DM_Rate">Desired Direct Material Ending Inventory (%):</label>
+            <input type="number" id="EI_DM_Rate" name="EI_DM_Rate" required><br><br>
 
-            <label for="desired-dm-ei">Desired Direct Material Ending Inventory (%):</label>
-            <input type="number" id="desired-dm-ei" name="desired-dm-ei" required>
+            <label for="DM_Price">Price of Direct Material per Unit ($):</label>
+            <input type="number" id="DM_Price" name="DM_Price" required><br><br>
 
-            <input type="submit" value="Add Data">
-
+            <input type="submit" value="Add BP Data">
         </form>
     </div>
-    <a href="list_data.html">
+
+    <a href="{{ url_for('view_data') }}">
         <button>View Data</button>
     </a>
-    <a href="home.html">
+    <a href="{{ url_for('home') }}">
         <button>Back to Dashboard</button>
     </a>
+
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
 </body>
 </html>

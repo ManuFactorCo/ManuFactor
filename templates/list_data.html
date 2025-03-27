@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Data - ManuFactor</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
 </head>
 <body>
-    <div class="data1-container">
+    <div class="cvp-container">
         <h1>View and Manage Data</h1>
         <h2>CVP Data Entries</h2>
 
-        <!-- example table displaying entered data -->
+        <!-- table displaying entered data -->
         <table>
             <thead>
                 <tr>
@@ -25,42 +25,39 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- example data -->
+            <!-- someone double check this parameter please -->
+                {% for prod_id in product_cvp %}
                 <tr>
-                    <td>1</td>
-                    <td>50000</td>
-                    <td>25</td>
-                    <td>75</td>
-                    <td>1000</td>
+            <!-- someone double check these variables please -->
+                    <td>{{ product_cvp.prod_id }}</td>
+                    <td>{{ product_cvp.fixed_cost }}</td>
+                    <td>{{ product_cvp.variable_cost_per_unit }}</td>
+                    <td>{{ product_cvp.selling_price_per_unit }}</td>
+                    <td>{{ product_cvp.target_income }}</td>
                     <td>
-                        <button>Edit</button>
+            <!-- Not sure if this was implemented correctly (Edit) -->
+                        <a href="{{ url_for('update_product_cvp', prod_id=product_cvp.prod_id) }}">
+                            <button>Edit</button>
+                        </a>
+            <!-- I don't think we have a (Delete) def yet, so this is a placeholder-->
+                        <!-- <a href="{{ url_for('delete_product_cvp', prod_id=product_cvp.prod_id) }}"> -->
                         <button>Delete</button>
-                        <a href="cvp_results.html">
+                        <!-- </a> -->
+                        <a href="{{ url_for('cvp_results', prod_id=product_cvp.prod_id) }}">
                             <button>View CVP Analysis</button>
                         </a>
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>60000</td>
-                    <td>30</td>
-                    <td>80</td>
-                    <td>1200</td>
-                    <td>
-                        <button>Edit</button>
-                        <button>Delete</button>
-                        <a href="cvp_results.html">
-                            <button>View CVP Analysis</button>
-                        </a>
-                    </td>
-                </tr>
+                {% else %}
+                    <td colspan="6">No CVP Data Available.</td>
+                {% endfor %}
             </tbody>
         </table>
-        <a href="add_data.html">
+        <a href="{{ url_for('add_data') }}">
             <button>Add New Data</button>
         </a>
     </div>
-    <div class="data2-container">
+    <div class="bp-container">
         <h2>BP Data Entries</h2>
 
         <!-- example table displaying entered data -->
@@ -74,51 +71,51 @@
                     <th>Desired Ending Inventory (%)</th>
                     <th>Direct Material per Unit</th>
                     <th>Desired Direct Material Ending Inventory (%)</th>
+                    <th>Price of Direct Material per Unit ($)</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- example data -->
+                {% for bp in bp_data %}
                 <tr>
-                    <td>1</td>
-                    <td>50000</td>
-                    <td>25</td>
-                    <td>75</td>
-                    <td>1000</td>
-                    <td>10</td>
-                    <td>100</td>
+            <!-- someone double check these variables please -->
+                    <td>{{ product_bp.prod_id }}</td>
+                    <td>{{ product_bp.curr_sales }}</td>
+                    <td>{{ product_bp.next_sales }}</td>
+                    <td>{{ product_bp.twicenext_sales }}</td>
+                    <td>{{ product_bp.ei_rate }}</td>
+                    <td>{{ product_bp.dm_per_unit }}</td>
+                    <td>{{ product_bp.ei_dm_rate }}</td>
+                    <td>{{ product_bp.dm_price }}</td>
                     <td>
-                        <button>Edit</button>
+            <!-- Not sure if this was implemented correctly (Edit) -->
+                        <a href="{{ url_for('update_product_bp', prod_id=product_bp.prod_id) }}">
+                            <button>Edit</button>
+                        </a>
+            <!-- I don't think we have a (Delete) def yet, so this is a placeholder-->
+                        <!-- <a href="{{ url_for('delete_product_bp', prod_id=product_bp.prod_id) }}"> -->
                         <button>Delete</button>
-                        <a href="bp_results.html">
+                        <!-- </a> -->
+                        <a href="{{ url_for('bp_results', prod_id=product_bp.prod_id) }}">
                             <button>View BP Analysis</button>
                         </a>
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>60000</td>
-                    <td>30</td>
-                    <td>80</td>
-                    <td>1200</td>
-                    <td>12</td>
-                    <td>120</td>
-                    <td>
-                        <button>Edit</button>
-                        <button>Delete</button>
-                        <a href="bp_results.html">
-                            <button>View BP Analysis</button>
-                        </a>
-                    </td>
-                </tr>
+                {% else %}
+                    <td colspan="8">No BP Data Available.</td>
+                {% endfor %}
             </tbody>
         </table>
-        <a href="add_data.html">
+        <a href="{{ url_for('add_data') }}">
             <button>Add New Data</button>
         </a>
     </div>
-    <a href="home.html">
+    <a href="{{ url_for('home') }}">
         <button>Back to Dashboard</button>
     </a>
+
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
 </body>
 </html>
