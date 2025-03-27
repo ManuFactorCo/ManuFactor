@@ -14,6 +14,11 @@ from encryption import cipher
 app = Flask(__name__)
 app.secret_key = 'secret_key'
 
+#LD adding part below
+initialize_database()
+
+#LD addding part above
+
 """C. MILLS: INITALIZE DB ONCE. 
 #INITALIZE DATABASE
 initialize_database()
@@ -38,7 +43,11 @@ def login():
         password = request.form['password']
         encrypted_username = cipher.encrypt(username.encode()).decode()
         user = get_username_from_database(encrypted_username)
+        print("Encrypted username sent to DB:", encrypted_username)# LD IS ADDING TO DEBUG
+        print("User returned from DB:", user)#LD IS ADDIGN TO DEBUG
+
         if user and cipher.decrypt(user['Password']) == password:
+            print("Password match:", cipher.decrypt(user['Password']) == password) #LD IS ADDING TO DEBUG
             session['ID'] = user['ID']
             session['username'] = cipher.decrypt(user['Username'])
             session['security'] = user['Security']

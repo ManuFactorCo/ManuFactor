@@ -4,30 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User - ManuFactor</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- stylesheet is just an example for now, styles.css doesn't exist in Increment 2 -->
 </head>
 <body>
     <div class="form-container">
         <h1>View and Manage Users</h1>
         <h2>Add New User</h2>
-        <form action="/add_users" method="POST">
+        <form action="{{ url_for('add_user') }}" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
-            <label for="username">Password:</label>
-            <input type="text" id="password" name="password" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
 
             <label for="role">Role:</label>
             <select id="role" name="role" required>
-                <option value="user">User</option>
-                <option value="viewer">Viewer</option>
+                <option value="1">Viewer</option>
+                <option value="2">User</option>
+                <option value="3">Admin</option>
             </select>
 
             <button type="submit">Add User</button>
         </form>
     </div>
-    <a href="home.html">
+    <a href="{{ url_for('home') }}">
         <button>Back to Dashboard</button>
     </a>
+
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
 </body>
 </html>
