@@ -6,6 +6,7 @@ INSTALL FLASK, CIPHER.
 """
 
 #IMPORT
+import mysql.connector #LD IS ADDING
 from flask import Flask, render_template, redirect, url_for, request, session
 from database import initialize_database, add_user_to_database, get_username_from_database #IMPLEMENT DATABASE FUNCTIONS
 from encryption import cipher
@@ -41,20 +42,26 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        encrypted_username = cipher.encrypt(username.encode()).decode()
+        encrypted_username = cipher.encrypt(username.encode()).decode()  # Encrypt username
+        
+        # Fetch user from DB
         user = get_username_from_database(encrypted_username)
-        print("Encrypted username sent to DB:", encrypted_username)# LD IS ADDING TO DEBUG
-        print("User returned from DB:", user)#LD IS ADDIGN TO DEBUG
 
-        if user and cipher.decrypt(user['Password']) == password:
-            print("Password match:", cipher.decrypt(user['Password']) == password) #LD IS ADDING TO DEBUG
-            session['ID'] = user['ID']
-            session['username'] = cipher.decrypt(user['Username'])
-            session['security'] = user['Security']
-            return redirect(url_for('home'))
+        # Check if password matches the decrypted stored password
+        if user:
+            decrypted_password = cipher.decrypt(user['Password'])  # Decrypt stored password
+            if decrypted_password == password:
+                session['ID'] = user['ID']
+                session['username'] = cipher.decrypt(user['Username'])  # Decrypt the username if needed
+                session['security'] = user['Security']
+                return redirect(url_for('home'))
+            else:
+                return render_template('login.html', error="INVALID PASSWORD.")  # Password mismatch
         else:
-            return render_template('login.html', error="INVALID.")
+            return render_template('login.html', error="USER NOT FOUND.")  # User not found
+
     return render_template('login.html')
+
 
 #LOGOUT FUNCTION
 @app.route('/logout')
@@ -67,8 +74,6 @@ def logout():
 def home():
     if 'ID' not in session:
         return redirect(url_for('login'))
-        print("DEBUG - username:", session.get('username'))
-        print("DEBUG - security:", session.get('security'))
     return render_template('home.html', username=session['username'], security=session['security'])
 
 #RESULTS PAGE FUNCTION
@@ -102,25 +107,83 @@ def add_data():
 #ADMIN FUNCTION LIST USER
 @app.route('/list_users')
 def list_users():
-    if 'ID' not in session or session['security'] >= 3:  
-        #IMPLEMENT DATABASE LOGIC
-        users = []
-        return render_template('list_users.html', users=users)
-    return redirect(url_for('login'))
+    if 'ID' not in session or session['security'] < 3:
+        return redirect(url_for('login'))
+    
+    # Connect to the database and get a cursor
+    connection = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="manuDB"
+    )
+    cursor = connection.cursor(dictionary=True)
+
+    # Fetch all users from the database
+    cursor.execute("SELECT * FROM user")
+    users = cursor.fetchall()
+
+    # Decrypt the usernames and update the user dictionary
+    for user in users:
+        user['Username'] = cipher.decrypt(user['Username'])  # Decrypt the username
+
+    # Close the connection
+    cursor.close()
+    connection.close()
+
+    return render_template('list_users.html', users=users)
+
 
 #ADMIN FUNCTION ADD USER
-@app.route('/add_user', methods=['GET', 'POST'])
+'''@app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
     if 'ID' not in session or session['security'] >= 3:  #LD changed security_level to security
         if request.method == 'POST':
             #IMPLEMENT DATABASE LOGIC
-            name = request.form['name']
-            security_level = int(request.form['security_level'])
+            username = request.form['username'] #LD changing name to username
+            security_level = int(request.form['role'])# LD changing security level to role
             password = cipher.encrypt(request.form['login_password'].encode()).decode()
-            add_user_to_database(name, security_level, password)
+            add_user_to_database(username, security_level, password)#LD changing name to username
             return redirect(url_for('results', message="USER ADDED."))
         return render_template('add_users.html') #LD changed add_user.html to add_user
-    return redirect(url_for('login'))
+    return redirect(url_for('login'))''' #LD REMOVED
+
+    #LD ADDING PART BELOW
+@app.route('/add_user', methods=['GET', 'POST'])
+def add_user():
+    if 'ID' not in session or session['security'] >= 3:
+        if request.method == 'POST':
+            # Get the form values
+            username = request.form['username']
+            security_level = int(request.form['role'])  # Get the role as the security level
+            password = request.form['login_password']
+
+            # Connect to the database and get a cursor
+            connection = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="",
+                database="manuDB"
+            )
+            cursor = connection.cursor()
+
+            # Add the user to the database
+            add_user_to_database(cursor, username, password, security_level)
+
+            # Commit the changes and close the connection
+            connection.commit()
+            cursor.close()
+            connection.close()
+
+            # Redirect after adding the user
+            return redirect(url_for('home', message="USER ADDED."))
+        return render_template('add_users.html')  # Display the form if it's a GET request
+    return redirect(url_for('login'))  # Redirect if not an admin
+
+
+    #LD ADDING PART ABOVE
+
+
 
 #ADDING ROUTES ALONGSIDE HTML
 

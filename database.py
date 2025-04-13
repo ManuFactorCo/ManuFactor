@@ -102,12 +102,14 @@ def initialize_database():
 
 
 def add_user_to_database(cursor, username, password, security_level):
-    """ Adds a new user to the database with encrypted password. """
-    encrypted_password = cipher.encrypt(password.encode()).decode()
+    """ Adds a new user to the database with encrypted password and username. """
+    encrypted_username = cipher.encrypt(username.encode()).decode()  # Encrypt username
+    encrypted_password = cipher.encrypt(password.encode()).decode()  # Encrypt password
+    
     cursor.execute("""
     INSERT INTO user (username, lname, email, security_level, password)
     VALUES (%s, %s, %s, %s, %s)
-    """, (username, username, f"{username}@example.com", security_level, encrypted_password))
+    """, (encrypted_username, username, f"{username}@example.com", security_level, encrypted_password))
 
 
 '''def get_username_from_database(encrypted_username):

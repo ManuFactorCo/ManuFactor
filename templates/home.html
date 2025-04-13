@@ -8,6 +8,11 @@
     <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
 </head>
 <body>
+    <!-- In home.html -->
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
     <!-- SECURITY LEVELS --><!--LD Changing all instances of "security_level" to security to match app.py-->
     {% if security == 3 %}
         <!-- ADMIN -->
