@@ -17,6 +17,13 @@ app.secret_key = 'secret_key'
 #LD adding part below
 initialize_database()
 
+#this should effectively make username a global variable
+#any template should now be able to refer to the username of whoever is logged in via {{username}}
+@app.context_processor
+def inject_user():
+    return dict(username=session.get('username'))
+
+
 #LD addding part above
 
 """C. MILLS: INITALIZE DB ONCE. 
