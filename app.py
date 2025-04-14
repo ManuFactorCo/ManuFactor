@@ -11,26 +11,12 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from database import initialize_database, add_user_to_database, get_username_from_database #IMPLEMENT DATABASE FUNCTIONS
 from encryption import cipher
 from get_comp_id import get_company_id_by_username
-from product_cvp import update_product_cvp
-from product_bp import update_product_bp
+from product_cvp import update_product_cvp, calc_cvp_summary
+from product_bp import update_product_bp, calc_bp_summary
 
 #FLASK
 app = Flask(__name__)
 app.secret_key = 'secret_key'
-
-#NEED TO TEST
-#this will essentially make both username and comp_id global within any template
-#can be accessed via {{username}} and {{comp_id}}
-#inject_globals() is called whenever render_template() is called
-@app.context_processor
-def inject_globals():
-    from flask import session
-
-    username = session.get('username')
-    comp_id = get_company_id_by_username(username) if username else None
-
-    return dict(username=username, comp_id=comp_id)
-
 
 #LD adding part below
 initialize_database()
@@ -256,8 +242,16 @@ def add_user():
 
     #LD ADDING PART ABOVE
 
-
-
+#NOTES FROM ANTONIO REGARDING RESULT OUTPUT
+#I am not sure where you are intending on having results displayed but essentially in 
+#whatever route we will call summary=calc_cvp_summary or summary=calc_bp_summary
+#then pass summary as an argument into render template, this should then make the
+#results of my back end function usable in the templates
+#EX: in a route that is for cvp results, app.py passes summary as an argument
+#in the template you could display the result of breakeven point in units as 
+# <p><strong>Breakeven Point (Units):</strong> {{ summary.breakeven_units }}</p>
+#once i know what exact routes are being used for cvp and bp result display
+#i will write the logic to pass summary into the template
 #ADDING ROUTES ALONGSIDE HTML
 
 #MAIN FUNCTION
