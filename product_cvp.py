@@ -83,13 +83,10 @@ def update_product_cvp(company_id, fixed_cost, variable_cost_per_unit, selling_p
 
 
 
-def calculate_breakeven_and_target_sales(data):
-    """
-    Calculates breakeven sales and target sales based on database values.
-    Returns a dictionary with results.
-    """
+def calc_cvp_summary(company_id):
+    data = get_product_cvp(company_id)
     if not data:
-        return {"error": "No data found for the given company ID."}
+        return None
 
     try:
         fixed_cost = float(data["fixed_cost"])
@@ -129,11 +126,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     company_id = args.company_id
 
-    # Get data
-    product_data = get_product_cvp(company_id)
 
-    # Compute breakeven and target sales
-    result = calculate_breakeven_and_target_sales(product_data)
-
+    result = calc_cvp_summary(company_id)
+    
     # Print result as JSON
     print(json.dumps(result, indent=4))
