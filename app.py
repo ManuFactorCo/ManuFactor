@@ -11,6 +11,8 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from database import initialize_database, add_user_to_database, get_username_from_database #IMPLEMENT DATABASE FUNCTIONS
 from encryption import cipher
 from get_comp_id import get_company_id_by_username
+from product_cvp import update_product_cvp
+from product_bp import update_product_bp
 
 #FLASK
 app = Flask(__name__)
@@ -115,7 +117,63 @@ def add_data():
     if session['security'] >= 2: 
         if request.method == 'POST':
             #IMPLEMENT DATABASE LOGIC
-            return redirect(url_for('results', message="RECORD ADDED."))
+            #EVERYTHING BETWEEN THIS AND 
+            username = session.get('username')
+            if not username:
+                return redirect(url_for('login'))
+                #redirects to login if no username
+            comp_id = get_company_id_by_username(username)
+            if not comp_id:
+                return "Company ID not found", 404
+                #error if not comp_id
+            if 'fixed_costs' in request.form:
+                #this means they are trying to update the cvp info
+                 try:
+                    fixed_cost = float(request.form['fixed_costs'])
+                    variable_cost = float(request.form['variable-cost-per-unit'])
+                    selling_price = float(request.form['selling-price-per-unit'])
+                    target_income = float(request.form['projected-units'])
+
+                    update_product_cvp(
+                        company_id=comp_id,
+                        fixed_cost=fixed_cost,
+                        variable_cost_per_unit=variable_cost,
+                        selling_price_per_unit=selling_price,
+                        target_income=target_income
+                    )
+
+                    return redirect(url_for('results', message="CVP data updated."))
+
+                    except ValueError:
+                     return "Invalid input values", 400    
+            elif 'curr_Sales' in request.form:
+                #this means they are trying to update the bp info
+                try:
+                    curr_sales = int(request.form['curr_Sales'])
+                    next_sales = int(request.form['next_Sales'])
+                    twicenext_sales = int(request.form['twicenext_Sales'])
+                    ei_rate = float(request.form['EI_Rate']) / 100  # Convert % to decimal
+                    dm_per_unit = float(request.form['DM_per_Unit'])
+                    ei_dm_rate = float(request.form['EI_DM_Rate']) / 100  # Convert % to decimal
+                    dm_price = float(request.form['DM_Price'])
+
+                    update_product_bp(
+                        company_id=comp_id,
+                        curr_Sales=curr_sales,
+                        next_Sales=next_sales,
+                        twicenext_Sales=twicenext_sales,
+                        EI_Rate=ei_rate,
+                        DM_per_Unit=dm_per_unit,
+                        EI_DM_Rate=ei_dm_rate,
+                        DM_Price=dm_price
+                    )
+
+                    return redirect(url_for('results', message="BP data updated."))
+
+                except ValueError:
+                    return "Invalid BP input values", 404  
+                #THIS WAS JUST ADDED
+                #requires testing but should handle updating the table
         return render_template('add_data.html')
     return redirect(url_for('login'))
 
