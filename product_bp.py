@@ -86,17 +86,12 @@ def calc_purchases(curr_production, next_production, EI_DM_Rate, DM_per_Unit, DM
     Use = curr_production * DM_per_Unit
     return DM_price * (Use + EI - BI)
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Calculate production and DM purchases for a given company.")
-    parser.add_argument("company_id", type=int, help="Company ID to retrieve BP data for")
-    args = parser.parse_args()
+def calc_bp_summary(company_id)
+        data = get_product_bp(company_id)
 
-    company_id = args.company_id
-    data = get_product_bp(company_id)
-
-    if not data:
-        print(json.dumps({"error": "No data found for the specified company."}))
-    else:
+        if not data:
+            return None
+    
         curr_sales = data['curr_Sales']
         next_sales = data['next_Sales']
         twicenext_sales = data['twicenext_Sales']
@@ -116,3 +111,11 @@ if __name__ == "__main__":
         }
 
         print(json.dumps(result, indent=2))
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Calculate production and DM purchases for a given company.")
+    parser.add_argument("company_id", type=int)
+    args = parser.parse_args()
+
+    result = calculate_bp_summary(args.company_id)
+    print(json.dumps(result, indent=2))
