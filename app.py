@@ -10,20 +10,28 @@ import mysql.connector #LD IS ADDING
 from flask import Flask, render_template, redirect, url_for, request, session
 from database import initialize_database, add_user_to_database, get_username_from_database #IMPLEMENT DATABASE FUNCTIONS
 from encryption import cipher
+from get_comp_id import get_company_id_by_username
 
 #FLASK
 app = Flask(__name__)
 app.secret_key = 'secret_key'
 
+#NEED TO TEST
+#this will essentially make both username and comp_id global within any template
+#can be accessed via {{username}} and {{comp_id}}
+#inject_globals() is called whenever render_template() is called
+@app.context_processor
+def inject_globals():
+    from flask import session
+
+    username = session.get('username')
+    comp_id = get_company_id_by_username(username) if username else None
+
+    return dict(username=username, comp_id=comp_id)
+
+
 #LD adding part below
 initialize_database()
-
-#this should effectively make username a global variable
-#any template should now be able to refer to the username of whoever is logged in via {{username}}
-@app.context_processor
-def inject_user():
-    return dict(username=session.get('username'))
-
 
 #LD addding part above
 
