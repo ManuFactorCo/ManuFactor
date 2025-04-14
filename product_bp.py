@@ -86,7 +86,7 @@ def calc_purchases(curr_production, next_production, EI_DM_Rate, DM_per_Unit, DM
     Use = curr_production * DM_per_Unit
     return DM_price * (Use + EI - BI)
 
-def calc_bp_summary(company_id)
+def calc_bp_summary(company_id):
         data = get_product_bp(company_id)
     
         if not data:
