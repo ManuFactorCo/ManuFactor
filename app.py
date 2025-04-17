@@ -242,48 +242,6 @@ def add_user():
 
     #LD ADDING PART ABOVE
 
-#SB - ADDING ROUTE SKELETON FROM TXT
-@app.route('/cvp_summary')
-def cvp_summary():
-    if 'username' not in session:
-        return redirect(url_for('login'))
-
-    username = session['username']
-    comp_id = get_company_id_by_username(username)
-    if not comp_id:
-        return "Company ID not found", 404
-
-    summary = calc_cvp_summary(comp_id)
-    if not summary:
-        return "No CVP data available", 404
-    if "error" in summary:
-        return f"Error: {summary['error']}", 400
-
-    #passes data to template, can reference as attributes of summary
-    #EX: to reference breakeven point in units use summary.breakeven_units
-    return render_template('cvp_summary.html', summary=summary)
-
-
-@app.route('/bp_summary')
-def bp_summary():
-    if 'username' not in session:
-        return redirect(url_for('login'))
-
-    username = session['username']
-    comp_id = get_company_id_by_username(username)
-    if not comp_id:
-        return "Company ID not found", 404
-
-    summary = calc_bp_summary(comp_id)
-    if not summary:
-        return "No BP data available.", 404
-    if "error" in summary:
-        return f"Error: {summary['error']}", 400
-    #passes data to template can reference as attributes of summary
-    #EX to reference required production, use summary.production_required
-    return render_template('bp_summary.html', summary=summary)
-#SB - ADDING ROUTE SKELETON FROM TXT
-
 #NOTES FROM ANTONIO REGARDING RESULT OUTPUT
 #I am not sure where you are intending on having results displayed but essentially in 
 #whatever route we will call summary=calc_cvp_summary or summary=calc_bp_summary
