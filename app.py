@@ -20,7 +20,6 @@ app.secret_key = 'secret_key'
 
 #LD adding part below
 initialize_database()
-
 #LD addding part above
 
 """C. MILLS: INITALIZE DB ONCE. 
@@ -238,9 +237,42 @@ def add_user():
             return redirect(url_for('home', message="USER ADDED."))
         return render_template('add_users.html')  # Display the form if it's a GET request
     return redirect(url_for('login'))  # Redirect if not an admin
-
-
     #LD ADDING PART ABOVE
+
+#SB - ADDING ROUTES "cvp_analysis()" AND "bp_analysis()" & MADE HTML TEMPLATES TO ROUTE "cvp_analysis.html" AND "bp_analysis.html".
+@app.route('/cvp_analysis')
+def cvp_analysis():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    username = session['username']
+    company_id = get_company_ID_by_username(username)
+    if not company_id:
+        return "INVALID"
+
+    analysis = cvp_analysis_calculation(company_id)
+    if not analysis:
+        return "INVALID"
+
+    return render_template('cvp_analysis.html', analysis=analysis)
+
+#SB - ADDING ROUTES "cvp_analysis()" AND "bp_analysis()" & MADE HTML TEMPLATES TO ROUTE "cvp_analysis.html" AND "bp_analysis.html".
+@app.route('/bp_analysis')
+def bp_analysis():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    username = session['username']
+    company_id = get_company_ID_by_username(username)
+    if not company_id:
+        return "INVALID"
+
+    analysis = bp_analysis_calculation(company_id)
+    if not analysis:
+        return "INVALID"
+
+    return render_template('bp_analysis.html', analysis=analysis)
+
 
 #NOTES FROM ANTONIO REGARDING RESULT OUTPUT
 #I am not sure where you are intending on having results displayed but essentially in 
