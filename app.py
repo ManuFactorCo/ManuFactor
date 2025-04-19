@@ -250,7 +250,7 @@ def cvp_analysis():
     if not company_id:
         return "INVALID"
 
-    analysis = cvp_analysis_calculation(company_id)
+    analysis = calc_cvp_summary(company_id)
     if not analysis:
         return "INVALID"
 
@@ -267,7 +267,7 @@ def bp_analysis():
     if not company_id:
         return "INVALID"
 
-    analysis = bp_analysis_calculation(company_id)
+    analysis = calc_bp_summary(company_id)
     if not analysis:
         return "INVALID"
 
