@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='cvpStyle.css') }}">
 </head>
 <body>
+    <h1>Cost-Volume-Profit (CVP) Analysis</h1>
     <div class="results-container">
-        <h1>Cost-Volume-Profit (CVP) Analysis</h1>
         <section id="cvp-analysis-section">
             <p>This analysis shows the relationship between cost, volume, and profit for the selected data, 
                 and helps show how changes in variable and fixed costs impact profit.</p>
@@ -26,10 +26,10 @@
                 <tbody>
                     <tr>
                         <td>{{ get_comp_id }}</td>
-                        <td>{{ summary.breakeven_units}}</td>
+                        <td>{{ summary.breakeven_units }}</td>
                         <td>${{ summary.breakeven_dollars }}</td>
-                        <td>${{ summary.target_units> }}/unit</td>
-                        <td>${{ summary.target_dollars> }}</td>
+                        <td>${{ summary.target_units }}/unit</td>
+                        <td>${{ summary.target_dollars }}</td>
                     </tr>
                 </tbody>
             </table>

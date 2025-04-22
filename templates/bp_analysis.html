@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='bpStyle.css') }}">
 </head>
 <body>
+    <h1>Budgeting Production (BP) Analysis</h1>
     <div class="results-container">
-        <h1>Budgeting Production (BP) Analysis</h1>
         <section id="bp-analysis-section">
             <p>This analysis helps plan how much of a product to manufacture to meet sales goals, 
                 avoiding over or underproduction for the selected data.</p>
@@ -24,7 +24,7 @@
                 <tbody>
                     <tr>
                         <td>{{ get_comp_id }}</td>
-                        <td>{{ summary.production_required}}</td>
+                        <td>{{ summary.production_required }}</td>
                         <td>{{ summary.dm_purchases_required }}</td>
                     </tr>
                 </tbody>
