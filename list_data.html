@@ -25,16 +25,15 @@
             <tbody>
                 {% if get_product_cvp %}
                 <tr>
-                    <td>{{ get_product_cvp.company_id }}</td>  <!-- changed prod_id to company_id (LM) -->
+                    <td>{{ get_comp_id }}</td>  <!-- changed to match app.py, double check this please (LM) -->
                     <td>{{ get_product_cvp.fixed_cost }}</td>
                     <td>{{ get_product_cvp.variable_cost_per_unit }}</td>
                     <td>{{ get_product_cvp.selling_price_per_unit }}</td>
                     <td>{{ get_product_cvp.target_income }}</td>
                     <td>
-                        <!-- action buttons need functionality (LM) -->
+                        <!-- edit button needs functionality (LM) -->
                         <button>Edit</button>
-                        <!-- removed Delete option (LM) -->
-                        <a href="{{ url_for('cvp_results', prod_id=product_cvp.prod_id) }}">
+                        <a href="/cvp_analysis">    <!-- changed for app.py route (LM)-->
                             <button>View CVP Analysis</button>
                         </a>
                     </td>
@@ -67,7 +66,7 @@
             <tbody>
                 {% if get_product_bp %}
                 <tr>
-                    <td>{{ get_product_bp.company_id }}</td> <!-- changed prod_id to company_id (LM) -->
+                    <td>{{ get_comp_id }}</td> <!-- changed to match app.py, double check this please (LM) -->
                     <td>{{ get_product_bp.curr_sales }}</td>
                     <td>{{ get_product_bp.next_sales }}</td>
                     <td>{{ get_product_bp.twicenext_sales }}</td>
@@ -76,10 +75,9 @@
                     <td>{{ get_product_bp.ei_dm_rate }}</td>
                     <td>{{ get_product_bp.dm_price }}</td>
                     <td>
-                        <!-- action buttons need functionality (LM) -->
+                        <!-- edit button needs functionality (LM) -->
                         <button>Edit</button>
-                        <!-- removed Delete option (LM) -->
-                        <a href="{{ url_for('bp_results', prod_id=product_bp.prod_id) }}">
+                        <a href="/bp_analysis">     <!-- changed for app.py route (LM)-->
                             <button>View BP Analysis</button>
                         </a>
                     </td>
