@@ -1,9 +1,52 @@
 <!DOCTYPE html>
-<html>
-<head><title>CVP Analysis</title></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVP Analysis - ManuFactor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cvpStyle.css') }}">
+</head>
 <body>
-    <h1>CVP Analysis Results</h1>
-    <!-- Just a placeholder for now -->
-    <pre>{{ analysis }}</pre>
+    <div class="results-container">
+        <h1>Cost-Volume-Profit (CVP) Analysis</h1>
+        <section id="cvp-analysis-section">
+            <p>This analysis shows the relationship between cost, volume, and profit for the selected data, 
+                and helps show how changes in variable and fixed costs impact profit.</p>
+            <!-- updated with proper variables, please look over just in case though (LM) -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Breakeven Point (Units)</th>
+                        <th>Break-Even Point</th>
+                        <th>Target Units</th>
+                        <th>Target Sales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ get_comp_id }}</td>
+                        <td>{{ summary.breakeven_units}}</td>
+                        <td>${{ summary.breakeven_dollars }}</td>
+                        <td>${{ summary.target_units> }}/unit</td>
+                        <td>${{ summary.target_dollars> }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- removed graphical analysis (LM)-->
+
+    <a href="{{ url_for('list_data') }}">
+        <button>View Input Data</button>
+    </a>
+    <a href="{{ url_for('home') }}">
+        <button>Back to Dashboard</button>
+    </a>
+
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
 </body>
 </html>

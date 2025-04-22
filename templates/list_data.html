@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Data - ManuFactor</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='listDataStyle.css') }}">
+    
 </head>
 <body>
+    <h1>View and Manage Data</h1>
     <div class="cvp-container">
-        <h1>View and Manage Data</h1>
-        <h2>CVP Data Entries</h2>
-
-        <!-- table displaying entered data -->
+        <h2>CVP Data</h2>
         <table>
             <thead>
                 <tr>
@@ -25,42 +23,32 @@
                 </tr>
             </thead>
             <tbody>
-            <!-- someone double check this parameter please -->
-                {% for prod_id in product_cvp %}
+                {% if get_product_cvp %}
                 <tr>
-            <!-- someone double check these variables please -->
-                    <td>{{ product_cvp.prod_id }}</td>
-                    <td>{{ product_cvp.fixed_cost }}</td>
-                    <td>{{ product_cvp.variable_cost_per_unit }}</td>
-                    <td>{{ product_cvp.selling_price_per_unit }}</td>
-                    <td>{{ product_cvp.target_income }}</td>
+                    <td>{{ get_comp_id }}</td>  <!-- changed to match app.py, double check this please (LM) -->
+                    <td>{{ get_product_cvp.fixed_cost }}</td>
+                    <td>{{ get_product_cvp.variable_cost_per_unit }}</td>
+                    <td>{{ get_product_cvp.selling_price_per_unit }}</td>
+                    <td>{{ get_product_cvp.target_income }}</td>
                     <td>
-            <!-- Not sure if this was implemented correctly (Edit) -->
-                        <a href="{{ url_for('update_product_cvp', prod_id=product_cvp.prod_id) }}">
-                            <button>Edit</button>
-                        </a>
-            <!-- I don't think we have a (Delete) def yet, so this is a placeholder-->
-                        <!-- <a href="{{ url_for('delete_product_cvp', prod_id=product_cvp.prod_id) }}"> -->
-                        <button>Delete</button>
-                        <!-- </a> -->
-                        <a href="{{ url_for('cvp_results', prod_id=product_cvp.prod_id) }}">
+                        <!-- edit button needs functionality (LM) -->
+                        <button>Edit</button>
+                        <a href="/cvp_analysis">    <!-- changed for app.py route (LM)-->
                             <button>View CVP Analysis</button>
                         </a>
                     </td>
                 </tr>
                 {% else %}
                     <td colspan="6">No CVP Data Available.</td>
+                    <a href="{{ url_for('add_data') }}">
+                        <button>Add New Data</button>
+                    </a>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{{ url_for('add_data') }}">
-            <button>Add New Data</button>
-        </a>
     </div>
     <div class="bp-container">
-        <h2>BP Data Entries</h2>
-
-        <!-- example table displaying entered data -->
+        <h2>BP Data</h2>
         <table>
             <thead>
                 <tr>
@@ -76,39 +64,32 @@
                 </tr>
             </thead>
             <tbody>
-                {% for bp in bp_data %}
+                {% if get_product_bp %}
                 <tr>
-            <!-- someone double check these variables please -->
-                    <td>{{ product_bp.prod_id }}</td>
-                    <td>{{ product_bp.curr_sales }}</td>
-                    <td>{{ product_bp.next_sales }}</td>
-                    <td>{{ product_bp.twicenext_sales }}</td>
-                    <td>{{ product_bp.ei_rate }}</td>
-                    <td>{{ product_bp.dm_per_unit }}</td>
-                    <td>{{ product_bp.ei_dm_rate }}</td>
-                    <td>{{ product_bp.dm_price }}</td>
+                    <td>{{ get_comp_id }}</td> <!-- changed to match app.py, double check this please (LM) -->
+                    <td>{{ get_product_bp.curr_sales }}</td>
+                    <td>{{ get_product_bp.next_sales }}</td>
+                    <td>{{ get_product_bp.twicenext_sales }}</td>
+                    <td>{{ get_product_bp.ei_rate }}</td>
+                    <td>{{ get_product_bp.dm_per_unit }}</td>
+                    <td>{{ get_product_bp.ei_dm_rate }}</td>
+                    <td>{{ get_product_bp.dm_price }}</td>
                     <td>
-            <!-- Not sure if this was implemented correctly (Edit) -->
-                        <a href="{{ url_for('update_product_bp', prod_id=product_bp.prod_id) }}">
-                            <button>Edit</button>
-                        </a>
-            <!-- I don't think we have a (Delete) def yet, so this is a placeholder-->
-                        <!-- <a href="{{ url_for('delete_product_bp', prod_id=product_bp.prod_id) }}"> -->
-                        <button>Delete</button>
-                        <!-- </a> -->
-                        <a href="{{ url_for('bp_results', prod_id=product_bp.prod_id) }}">
+                        <!-- edit button needs functionality (LM) -->
+                        <button>Edit</button>
+                        <a href="/bp_analysis">     <!-- changed for app.py route (LM)-->
                             <button>View BP Analysis</button>
                         </a>
                     </td>
                 </tr>
                 {% else %}
                     <td colspan="8">No BP Data Available.</td>
+                    <a href="{{ url_for('add_data') }}">
+                        <button>Add New Data</button>
+                    </a>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{{ url_for('add_data') }}">
-            <button>Add New Data</button>
-        </a>
     </div>
     <a href="{{ url_for('home') }}">
         <button>Back to Dashboard</button>
