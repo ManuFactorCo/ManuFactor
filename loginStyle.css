@@ -22,7 +22,7 @@ h1 {
 }
 
 span {
-    color: #b53324
+    color: #b53324;
 }
 
 /* Container Styling */
@@ -70,15 +70,18 @@ input[type="submit"] {
     color: #661f17;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Fancy Shmancy Stuff */
 input[type="submit"]:hover {
-    background-color: rgb(255, 191, 112);
-    color: #b53324
+    background-color: rgb(205, 122, 21);
+    color: #ffffff;
+    font-weight: bold;
 }
 
-/* Error Styling
+/* Error Styling */
+ /*
 p {
     color: rgb(148, 17, 83);
     font-size: 30px;

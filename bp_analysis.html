@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BP Analysis - ManuFactor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bpStyle.css') }}">
+</head>
+<body>
+    <h1>Budgeting Production (BP) Analysis</h1>
+    <div class="results-container">
+        <section id="bp-analysis-section">
+            <p>This analysis helps plan how much of a product to manufacture to meet sales goals, 
+                avoiding over or underproduction for the selected data.</p>
+            <!-- updated with proper variables, please look over just in case though (LM) -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Units</th>
+                        <th>Direct Material Purchases</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ get_comp_id }}</td>
+                        <td>{{ summary.production_required }}</td>
+                        <td>{{ summary.dm_purchases_required }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    
+    <!-- removed graphical analysis (LM)-->
+
+    <a href="{{ url_for('list_data') }}">
+        <button>View Input Data</button>
+    </a>
+    <a href="{{ url_for('home') }}">
+        <button>Back to Dashboard</button>
+    </a>
+
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
+</body>
+</html>

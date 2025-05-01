@@ -1,0 +1,127 @@
+/* default */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #dfbc94;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    color: #661f17;
+}
+
+/* headings */
+h1, h2 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    color: #661f17;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    border-bottom: 2px solid #e5a657;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* form container */
+.form-container {
+    background-color: #f5e2ce;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px #661f17;
+    width: 95%;
+    max-width: 500px;
+    margin-bottom: 30px;
+}
+
+/* form stuff */
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 16px;
+    color: #661f17;
+}
+
+form input[type="text"],
+form input[type="password"],
+form select {
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #dfbc94;
+    border-radius: 6px;
+    font-size: 15px;
+    background-color: #fffdf7;
+    transition: border-color 0.2s ease;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: #e5a657;
+}
+
+/* Submit Button */
+form button[type="submit"] {
+    background-color: #e5a657;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: rgb(205, 122, 21);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* general Buttons */
+a button {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #e5a657;
+    color: #661f17;
+    border: none;
+    border-radius: 6px;
+    margin: 10px 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+a button:hover {
+    background-color: rgb(205, 122, 21);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Logout Link */
+a[href="/logout"] {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #661f17;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a[href="/logout"]:hover {
+    text-decoration: underline;
+}
