@@ -6,6 +6,3 @@ Ludginie Dorval<br/>
 Antonio Garriga<br/>
 William Lee<br/>
 Lillian Malik<br/>
-
-Meeting Documentation:<br/>
-https://docs.google.com/document/d/1Ht-oGs4tScL3NcizvwsrkFPg-k-IB_8blngZnJPi8SI/edit?usp=sharing
