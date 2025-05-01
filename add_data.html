@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Data - ManuFactor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='addDataStyle.css') }}">
+    
+</head>
+<body>
+    <h1>View and Manage Data</h1>
+    
+    <h2>Add New CVP Data</h2>
+    <div class="cvp-container">
+        <form action="{{ url_for('add_data') }}" method="POST">
+            <label for="fixed_costs">Fixed Costs ($):</label>
+            <input type="number" id="fixed_costs" name="fixed_costs" required><br><br>
+
+            <label for="variable-cost-per-unit">Variable Cost per Unit ($):</label>
+            <input type="number" id="variable-cost-per-unit" name="variable-cost-per-unit" required><br><br>
+
+            <label for="selling-price-per-unit">Selling Price per Unit ($):</label>
+            <input type="number" id="selling-price-per-unit" name="selling-price-per-unit" required><br><br>
+
+            <label for="projected-units">Target Income ($):</label>
+            <input type="number" id="projected-units" name="projected-units" required><br><br>
+
+            <input type="submit" value="Add CVP Data">
+        </form>
+    </div>
+
+    <h2>Add New BP Data</h2>
+    <div class="bp-container">
+        <form action="{{ url_for('add_data') }}" method="POST">
+            <label for="curr_Sales">Current Month's Projected Sales ($):</label>
+            <input type="number" id="curr_Sales" name="curr_Sales" required><br><br>
+
+            <label for="next_Sales">Next Month's Projected Sales ($):</label>
+            <input type="number" id="next_Sales" name="next_Sales" required><br><br>
+
+            <label for="twicenext_Sales">Subsequent Month's Projected Sales ($):</label>
+            <input type="number" id="twicenext_Sales" name="twicenext_Sales" required>
+
+            <label for="EI_Rate">Desired Ending Inventory (%):</label>
+            <input type="number" id="EI_Rate" name="EI_Rate" required><br><br>
+
+            <label for="DM_per_Unit">Direct Material per Unit:</label>
+            <input type="number" id="DM_per_Unit" name="DM_per_Unit" required><br><br>
+
+            <label for="DM_Price">Price of Direct Material per Unit ($):</label>
+            <input type="number" id="DM_Price" name="DM_Price" required><br><br>
+
+            <label for="EI_DM_Rate">Desired Direct Material Ending Inventory (%):</label>
+            <input type="number" id="EI_DM_Rate" name="EI_DM_Rate" required><br><br>
+
+            <input type="submit" value="Add BP Data">
+        </form>
+    </div>
+
+    <a href="{{ url_for('list_data') }}">
+        <button>View Data</button>
+    </a>
+    <a href="{{ url_for('home') }}">
+        <button>Back to Dashboard</button>
+    </a>
+
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
+</body>
+</html>

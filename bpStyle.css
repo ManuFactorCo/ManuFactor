@@ -1,0 +1,89 @@
+/* some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #dfbc94;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+    color: #661f17;
+}
+
+/* headings */
+h1 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #661f17;
+}
+
+/* container */
+.results-container {
+    background-color: #f5e2ce;
+    padding: 20px 24px;
+    border-radius: 20px;
+    box-shadow: 0px 3px 6px #661f17;
+    width: 95%;
+    max-width: 750px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+/* tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+thead {
+    background-color: #e5a657;
+    color: #ffffff;
+    text-align: left;
+}
+
+tbody tr:hover {
+    background-color: #f3d4b3;
+    transition: background-color 0.3s ease;
+}
+
+/* generic Buttons */
+a button {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #e5a657;
+    color: #661f17;
+    border: none;
+    border-radius: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+a button:hover {
+    background-color: rgb(205, 122, 21);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* logout */
+a[href="/logout"] {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #661f17;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a[href="/logout"]:hover {
+    text-decoration: underline;
+}

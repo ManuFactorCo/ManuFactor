@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members - ManuFactor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='listUsersStyle.css') }}">
+</head>
+<body>
+    <h1>View and Manage Team</h1>
+    <div class="user-list-container">
+        <h2>Members</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.Username }}</td>  <!-- Display the decrypted username -->
+                    <td>
+                        {% if user.security_level == 3 %}
+                            Admin
+                        {% elif user.security_level == 2 %}
+                            User
+                        {% elif user.security_level == 1 %}
+                            Viewer
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </td>
+                    <td>
+                        <!-- action buttons need functionality (LM) -->
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2">No users available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('add_user') }}">
+            <button>Add New User</button>
+        </a>
+    </div>
+    <a href="{{ url_for('home') }}">
+        <button>Back to Dashboard</button>
+    </a>
+
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
+</body>
+</html>
