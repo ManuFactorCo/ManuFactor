@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <form action="/login" method="post">
+        <!-- USERNAME -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <!-- PASSWORD -->
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <!-- SUBMIT -->
+        <input type="submit" value="Login">
+    </form>
+    <!-- ERROR HANDLING -->
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html> 

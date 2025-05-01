@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - ManuFactor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
+</head>
+<body>
+    <!-- In home.html -->
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <!-- SECURITY LEVELS --><!--LD Changing all instances of "security_level" to security to match app.py-->
+    {% if security == 3 %}
+        <!-- ADMIN -->
+        <a href="{{ url_for('add_user') }}"><button>Manage Users</button></a><!--changing add_users to add_user-->
+        <a href="{{ url_for('list_users') }}"><button>View Users</button></a>
+        <a href="{{ url_for('add_data') }}"><button>Manage Data</button></a>
+        <a href="{{ url_for('list_data') }}"><button>View Data</button></a>
+    {% elif security == 2 %}
+        <!-- USER -->
+        <a href="{{ url_for('add_data') }}"><button>Manage Data</button></a>
+        <a href="{{ url_for('list_data') }}"><button>View Data</button></a>
+    {% elif security == 1 %}
+        <!-- VIEWER -->
+        <a href="{{ url_for('list_data') }}"><button>View Data</button></a>
+    {% endif %}
+    
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
+</body>
+</html>

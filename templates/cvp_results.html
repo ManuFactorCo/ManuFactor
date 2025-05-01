@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - ManuFactor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- stylesheet is just an example for now, styles.css doesnt exist in Increment 2 -->
+     
+    <!-- Can use Chart.js to display results visually -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="results-container">
+        <h1>Cost-Volume-Profit (CVP) Analysis</h1>
+
+        <!-- CVP Analysis section -->
+        <section id="cvp-analysis-section">
+            <h2>Cost-Volume-Profit (CVP) Analysis</h2>
+            <p>This analysis shows the relationship between cost, volume, and profit for the selected data.</p>
+            <ul>
+<!-- idk if I used the right variables here (NEEDS REFINEMENT FOR INCREMENT 3) -->
+                <li><strong>Break-Even Point (Units):</strong> {{ product_cvp.breakeven_result }}</li>
+                <li><strong>Variable Cost per Unit:</strong> ${{ product_cvp.variable_cost_per_unit }}/unit</li>
+                <li><strong>Fixed Cost:</strong> ${{ product_cvp.fixed_cost }}</li>
+                <li><strong>Target Income:</strong> ${{ product_cvp.target_income }}</li>
+            </ul>
+
+<!-- EXAMPLE Graph Representation for CVP (NEEDS REFINEMENT FOR INCREMENT 3) -->
+            <!--
+            <section id="cvp-chart-section">
+                <h3>Graphical Analysis</h3>
+                <canvas id="cvpChart" width="400" height="200"></canvas>
+                <script>
+                    var ctx = document.getElementById('cvpChart').getContext('2d');
+                    var cvpChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['0', '500', '1000', '1500', '2000'],  // X-axis: Units Sold
+                            datasets: [{
+                                label: 'Revenue',
+                                data: [0, 25000, 50000, 75000, 100000],  // Y-axis: Revenue
+                                borderColor: 'yellow',
+                                fill: false
+                            }, {
+                                label: 'Costs',
+                                data: [50000, 50000, 50000, 50000, 50000],  // Y-axis: Costs
+                                borderColor: 'red',
+                                fill: false
+                            }]
+                        }
+                    });
+                </script>
+            </section>
+            -->
+
+        <!-- EXAMPLE Results Table for CVP (NEEDS REFINEMENT FOR INCREMENT 3) -->
+            <section id="cvp-results-table-section">
+                <h3>Detailed CVP Results</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Unit Range</th>
+                            <th>Total Revenue</th>
+                            <th>Total Costs</th>
+                            <th>Profit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0-500</td>
+                            <td>$0 - $25,000</td>
+                            <td>$50,000</td>
+                            <td>-$50,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+        <a href="{{ url_for('add_data') }}">
+            <button>Add New Data</button>
+        </a>
+    </div>
+
+    <a href="{{ url_for('list_data') }}">
+        <button>View Data</button>
+    </a>
+
+    <a href="{{ url_for('home') }}">
+        <button>Back to Dashboard</button>
+    </a>
+
+    <!-- LOGOUT -->
+    <br><br>
+    <a href="/logout">Logout</a>
+</body>
+</html>
