@@ -1,11 +1,11 @@
-/* some default styles */
+/* Reset some default styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* overall page background and text alignment */
+/* Set up the overall page background and text alignment */
 body {
     font-family: 'Courier New', Courier, monospace;
     background-color: #dfbc94;
@@ -22,7 +22,7 @@ h1 {
 }
 
 span {
-    color: #b53324
+    color: #b53324;
 }
 
 /* Container Styling */
@@ -79,3 +79,12 @@ input[type="submit"]:hover {
     color: #ffffff;
     font-weight: bold;
 }
+
+/* Error Styling */
+ /*
+p {
+    color: rgb(148, 17, 83);
+    font-size: 30px;
+    margin-top: 10px;
+}
+*/
